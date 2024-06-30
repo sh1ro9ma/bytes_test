@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "ms-vscode.hexeditor",
+        "njpwerner.autodocstring",
+        "ms-python.mypy-type-checker",
+        "ms-python.python",
+        "charliermarsh.ruff"
+    ]
+}
