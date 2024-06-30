@@ -1,0 +1,42 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+	"settings": {
+		// ミニマップを非表示にする
+		"editor.minimap.enabled": false,
+		// カラーカスタマイズ
+		"workbench.colorCustomizations": {
+			"activityBar.background": "#e2df16b4",
+			"activityBar.foreground": "#06065df5",
+		},
+
+		// フォント設定
+		"editor.fontFamily": "Consolas, 'Meiryo UI','Courier New', monospace",
+
+		// フォーマッターの設定
+		"editor.defaultFormatter": "charliermarsh.ruff",
+		"editor.formatOnSave": true,
+		"editor.codeActionsOnSave": {
+			"source.fixAll": "explicit",
+			"source.organizeImports": "explicit"
+		},
+
+		// ruffの設定
+		"ruff.format.args": [
+			"--config=pyproject.toml"
+		],
+
+		// mypyの設定
+		"mypy-type-checker.args": [
+			"--config-file=pyproject.ini"
+		],
+		"mypy-type-checker.ignorePatterns": [
+			"docs/source/conf.py",
+		],
+
+		"autoDocstring.docstringFormat": "google",
+	}
+}

@@ -1,0 +1,55 @@
+# ■■■■■■■■■■■■■■■■■■■■
+# ruff
+# ■■■■■■■■■■■■■■■■■■■■
+[tool.ruff]
+# 1行の最大文字数
+line-length = 150
+
+[tool.ruff.lint]
+# チェックするエラーの種類
+# https://docs.astral.sh/ruff/rules/#mccabe-c90
+# https://docs.astral.sh/ruff/settings/
+# https://qiita.com/taskforce_Hisui/items/9b89c5fad5ad327af9db
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "N",  # pep8-naming
+]
+
+# 除外するファイル
+exclude = [
+]
+
+# 除外するエラーの種類
+ignore = [
+]
+
+# ファイルごとのエラー除外
+[tool.ruff.lint.per-file-ignores]
+"docs/source/conf.py" = ["E402"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"  # Accepts: "google", "numpy", or "pep257".
+
+# ■■■■■■■■■■■■■■■■■■■■
+# mypy
+# ■■■■■■■■■■■■■■■■■■■■
+# https://mypy.readthedocs.io/en/stable/config_file.html
+# mypy global options:
+[tool.mypy]
+python_version = "2.7"
+warn_return_any = true
+warn_unused_configs = true
+exclude = [
+]
+
+warn-return-any = true  # 返り値を明示する
+no-implicit-optional = true  # 型を明示した変数に None の代入を禁止
+# disallow-untyped-calls = true  # 返り値が明示されていない関数を呼び出すのをユルサナイ
+# disallow-untyped-defs = ture  # 関数に返り値の型を明示する
+no-untyped-def = false  # 関数に返り値の型を明示する
