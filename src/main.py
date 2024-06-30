@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
+OUTPUT_FILE_DIR = "./src/output/"
 OUTPUT_FILE_NAME = "image.bmp"
-OUTPUT_FILE_PATH = "./src/output/" + OUTPUT_FILE_NAME
+OUTPUT_FILE_PATH = OUTPUT_FILE_DIR + OUTPUT_FILE_NAME
+
+TEMP_FILE_NAME = "temp.bin"
+TEMP_FILE_PATH = OUTPUT_FILE_DIR + TEMP_FILE_NAME
 
 LITTLE_ENDIAN = 0
 BIG_ENDIAN = 1
 
 FILE_WIDTH = 640
-FILIE_HEIGHT = 480
+FILE_HEIGHT = 480
 PX_SIZE = 3
-IMAGE_SIZE = FILE_WIDTH * FILIE_HEIGHT * PX_SIZE
+IMAGE_SIZE = FILE_WIDTH * FILE_HEIGHT * PX_SIZE
 
 FILE_HEADER_SIZE = 14
 INFO_HEADER_SIZE = 40
@@ -64,7 +68,7 @@ def make_info_header():
     bytes_data = b""
     bytes_data = bytes_data + int2bytes(40, 4, LITTLE_ENDIAN)  # ヘッダサイズ
     bytes_data = bytes_data + int2bytes(FILE_WIDTH, 4, LITTLE_ENDIAN)  # 画像の幅[px]
-    bytes_data = bytes_data + int2bytes(FILIE_HEIGHT, 4, LITTLE_ENDIAN)  # 画像の高さ[px]
+    bytes_data = bytes_data + int2bytes(FILE_HEIGHT, 4, LITTLE_ENDIAN)  # 画像の高さ[px]
     bytes_data = bytes_data + int2bytes(1, 2, LITTLE_ENDIAN)  # プレーン数 1固定
     bytes_data = bytes_data + int2bytes(24, 2, LITTLE_ENDIAN)  # 1画素あたりのデータサイズ[bit]
     bytes_data = bytes_data + int2bytes(0, 4, LITTLE_ENDIAN)  # 圧縮形式
@@ -81,6 +85,9 @@ def main():
     bytes_data = bytes_data + make_file_header()
     bytes_data = bytes_data + make_info_header()
 
+    with open(TEMP_FILE_PATH, "rb") as f:
+        temp_data = f.read()
+    bytes_data = bytes_data + temp_data
 
     with open(OUTPUT_FILE_PATH, "wb") as f:
         f.write(bytes_data)
