@@ -54,9 +54,32 @@ def make_file_header():
     return bytes_data
 
 
+# def make_info_header() -> bytes:
+def make_info_header():
+    """情報ヘッダの作成
+
+    Returns:
+        bytes: 作成した情報ヘッダ
+    """
+    bytes_data = b""
+    bytes_data = bytes_data + int2bytes(40, 4, LITTLE_ENDIAN)  # ヘッダサイズ
+    bytes_data = bytes_data + int2bytes(FILE_WIDTH, 4, LITTLE_ENDIAN)  # 画像の幅[px]
+    bytes_data = bytes_data + int2bytes(FILIE_HEIGHT, 4, LITTLE_ENDIAN)  # 画像の高さ[px]
+    bytes_data = bytes_data + int2bytes(1, 2, LITTLE_ENDIAN)  # プレーン数 1固定
+    bytes_data = bytes_data + int2bytes(24, 2, LITTLE_ENDIAN)  # 1画素あたりのデータサイズ[bit]
+    bytes_data = bytes_data + int2bytes(0, 4, LITTLE_ENDIAN)  # 圧縮形式
+    bytes_data = bytes_data + int2bytes(0, 4, LITTLE_ENDIAN)  # 画像データ部のサイズ
+    bytes_data = bytes_data + int2bytes(0, 4, LITTLE_ENDIAN)  # 横方向解像度
+    bytes_data = bytes_data + int2bytes(0, 4, LITTLE_ENDIAN)  # 縦方向解像度
+    bytes_data = bytes_data + int2bytes(0, 4, LITTLE_ENDIAN)  # 格納されているパレット数
+    bytes_data = bytes_data + int2bytes(0, 4, LITTLE_ENDIAN)  # 重要なパレットのインデックス
+    return bytes_data
+
+
 def main():
     bytes_data = b""
     bytes_data = bytes_data + make_file_header()
+    bytes_data = bytes_data + make_info_header()
 
 
     with open(OUTPUT_FILE_PATH, "wb") as f:
