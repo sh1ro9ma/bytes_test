@@ -1,0 +1,24 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "UnitTest",
+            "type": "shell",
+            "command": "pytest",
+            "args": [
+                "${workspaceFolder}\\pytest\\test_main.py",
+                "-v",
+                "--junitxml=${workspaceFolder}\\pytest\\report.xml",  // JUnit形式のXMLファイルを出力
+                "--html=${workspaceFolder}\\pytest\\report.html",  // HTML形式のレポートを出力
+                "--self-contained-html",  // CSSをHTMLに埋め込む
+            ],
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        }
+    ]
+}
