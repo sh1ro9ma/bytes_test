@@ -80,14 +80,33 @@ def make_info_header():
     return bytes_data
 
 
+def make_image_data():
+    with open(TEMP_FILE_PATH, "rb") as f:
+        temp_data = f.read()
+
+    bytes_data = b""
+    # 画像データを上下反転
+    for y in range(FILE_HEIGHT):
+        for x in range(FILE_WIDTH):
+            # 画像下部から読み出し
+            bottom_index = ((FILE_HEIGHT - 1 - y) * FILE_WIDTH + x) * PX_SIZE
+            bottom_data = temp_data[bottom_index:bottom_index + PX_SIZE]
+
+            # RGBをBGRに変換
+            bottom_data = bottom_data[::-1]
+
+            # 画像データに追加
+            bytes_data = bytes_data + bottom_data
+
+    return bytes_data
+
+
 def main():
     bytes_data = b""
     bytes_data = bytes_data + make_file_header()
     bytes_data = bytes_data + make_info_header()
+    bytes_data = bytes_data + make_image_data()
 
-    with open(TEMP_FILE_PATH, "rb") as f:
-        temp_data = f.read()
-    bytes_data = bytes_data + temp_data
 
     with open(OUTPUT_FILE_PATH, "wb") as f:
         f.write(bytes_data)

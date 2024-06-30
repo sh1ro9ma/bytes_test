@@ -17,10 +17,7 @@ def make_temp_data():
                 g = main.int2bytes(0, 1, main.LITTLE_ENDIAN)
                 b = main.int2bytes(0, 1, main.LITTLE_ENDIAN)
 
-            # 以下順での書き込みはBGRと解釈される
-            # bytes_data = bytes_data + r + g + b
-
-            bytes_data = bytes_data + b + g + r
+            bytes_data = bytes_data + r + g + b
 
     return bytes_data
 
